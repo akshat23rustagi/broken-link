@@ -14,7 +14,7 @@ Steps to install
 
 ## Usage
 
-After installing run from command line, using "node index.js <url of the webapge>
+After installing , to run from command line, use "node index.js <url of the webapge>"
 
 For example, node index.js http://www.google.com
 
