@@ -24,3 +24,7 @@ output : Got some URL's
 
 
 In case of invalid or no input URL, output will be like "No URL provided or invalid URL"
+
+## Authors
+
+Akshat Rustagi mailto:akshat23rustagi@yahoo.co.in
