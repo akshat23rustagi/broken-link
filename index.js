@@ -19,7 +19,14 @@ function findBrokenLinks() {
                 var urls = body.match(regex);
                 if (urls) {
                     console.log('Got some URL\'s');
-                    urls.forEach(executeLink);
+                    for (let i = 0; i < urls.length; ++i) {
+                        // Used a promise to check invalid url or not
+                        executeLinkPromsified(urls[i])
+                            .then()
+                            .catch(function(error) {
+                            console.log('Got invalid URL ' + error.url + ' with error code ' + error.statusCode);
+                        });
+                    }
                 } else {
                     console.log('No links Found in the page');
                     process.exit(0);
@@ -41,13 +48,22 @@ function findBrokenLinks() {
  * @param {number} index
  * @param array
  */
-var executeLink = function (element, index, array) {
-    request.get(element, function(err, res) {
-        if (err || !isSuccessCode(res.statusCode)) {
-            // Found a broken link
-            console.log("\n Broken Link : " + element + " Status Code : " + res.statusCode);
-        }
-    });
+var executeLinkPromsified = function (element) {
+    return new Promise(
+      function (resolve, reject) {
+          request.get(element, function (err, res, body) {
+              if (err || res.statusCode != 200) {
+                  reject({
+                      error : err,
+                      statusCode : res.statusCode || '',
+                      url : element
+                  });
+              } else {
+                  resolve(body);
+              }
+          });
+      }
+    );
 };
 
 /**
