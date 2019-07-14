@@ -32,7 +32,7 @@ function findBrokenLinks() {
                     process.exit(0);
                 }
             } else {
-                console.log('Something went wrong!!!!! ' + err);
+                console.log('Something went wrong!!!!! ' +  JSON.stringify(resp));
                 process.exit(1);
             }
         });
@@ -55,7 +55,7 @@ var executeLinkPromsified = function (element) {
               if (err || res.statusCode != 200) {
                   reject({
                       error : err,
-                      statusCode : res.statusCode || '',
+                      statusCode : res && res.statusCode || '',
                       url : element
                   });
               } else {
